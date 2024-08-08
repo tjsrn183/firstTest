@@ -24,4 +24,8 @@ export default {
   contentPoints(state) {
     return state.item.points;
   },
-}
+  //comment
+  fetchComment(state) {
+    return state.comment;
+  },
+};

@@ -1,30 +1,26 @@
-import {
-  fetchNews,
-  fetchAsk,
-  fetchJobs,
-  fetchUser,
-  fetchItem,
-  fetchList
-} from '../api/index.js';
+import { fetchUser, fetchItem, fetchList } from '../api/index.js';
 
 export default {
-  FETCH_NEWS({ commit }) {
-    return fetchNews().then(response => commit('SET_NEWS', response.data));
-  },
-  FETCH_ASK({ commit }) {
-    return fetchAsk().then(response => commit('SET_ASK', response.data));
-  },
-  FETCH_JOBS({ commit }) {
-    return fetchJobs().then(response => commit('SET_JOBS', response.data));
-  },
   FETCH_USER({ commit }, userId) {
     return fetchUser(userId).then(res => commit('SET_USER', res.data));
   },
   FETCH_ITEM({ commit }, itemId) {
     return fetchItem(itemId).then(res => commit('SET_ITEM', res.data));
   },
-  // hoc
+
   FETCH_LIST({ commit }, listType) {
     return fetchList(listType).then(res => commit('SET_LIST', res.data));
   },
-}
+  INCREMENT_POINTS({ commit }, id) {
+    return commit('INCREASE_HEART', id);
+  },
+  DECREMENT_POINTS({ commit }, id) {
+    return commit('DECREASE_HEART', id);
+  },
+  ADD_TODO({ commit }, text) {
+    return commit('ADD_TODO', text);
+  },
+  DELETE_TODO({ commit }, id) {
+    return commit('DELETE_TODO', id);
+  },
+};

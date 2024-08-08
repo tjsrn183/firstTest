@@ -4,7 +4,8 @@ import { ItemView, UserView } from '../views';
 import createListView from '../views/CreateListView';
 import bus from '../utils/bus.js';
 import store from '../store/index.js';
-
+import JobsView from '../views/JobsView';
+import CommunityView from '../views/CommunityView.vue';
 Vue.use(VueRouter);
 
 export default new VueRouter({
@@ -12,7 +13,7 @@ export default new VueRouter({
   routes: [
     {
       path: '/',
-      redirect: '/news' 
+      redirect: '/news',
     },
     {
       path: '/news',
@@ -20,9 +21,10 @@ export default new VueRouter({
       component: createListView('NewsView'),
       beforeEnter(routeTo, routeFrom, next) {
         bus.$emit('on:progress');
-        store.dispatch('FETCH_LIST', routeTo.name)
+        store
+          .dispatch('FETCH_LIST', routeTo.name)
           .then(() => next())
-          .catch((() => new Error('failed to fetch news items')));
+          .catch(() => new Error('failed to fetch news items'));
       },
     },
     {
@@ -31,20 +33,31 @@ export default new VueRouter({
       component: createListView('AskView'),
       beforeEnter(routeTo, routeFrom, next) {
         bus.$emit('on:progress');
-        store.dispatch('FETCH_LIST', routeTo.name)
+        store
+          .dispatch('FETCH_LIST', routeTo.name)
           .then(() => next())
-          .catch((() => new Error('failed to fetch news items')));
+          .catch(() => new Error('failed to fetch news items'));
       },
     },
     {
       path: '/jobs',
       name: 'jobs',
-      component: createListView('JobsView'),
+      component: JobsView,
       beforeEnter(routeTo, routeFrom, next) {
         bus.$emit('on:progress');
-        store.dispatch('FETCH_LIST', routeTo.name)
+        store
+          .dispatch('FETCH_LIST', routeTo.name)
           .then(() => next())
-          .catch((() => new Error('failed to fetch news items')));
+          .catch(() => new Error('failed to fetch news items'));
+      },
+    },
+    {
+      path: '/community',
+      name: 'community',
+      component: CommunityView,
+      beforeEnter(routeTo, routeFrom, next) {
+        bus.$emit('off:progress');
+        next();
       },
     },
     {
@@ -53,7 +66,8 @@ export default new VueRouter({
       beforeEnter(routeTo, routeFrom, next) {
         bus.$emit('on:progress');
         const itemId = routeTo.params.id;
-        store.dispatch('FETCH_ITEM', itemId)
+        store
+          .dispatch('FETCH_ITEM', itemId)
           .then(() => next())
           .catch(err => new Error('failed to fetch item details', err));
       },
@@ -64,10 +78,11 @@ export default new VueRouter({
       beforeEnter(routeTo, routeFrom, next) {
         bus.$emit('on:progress');
         const itemId = routeTo.params.id;
-        store.dispatch('FETCH_USER', itemId)
+        store
+          .dispatch('FETCH_USER', itemId)
           .then(() => next())
           .catch(err => new Error('failed to fetch user profile', err));
       },
-    }
-  ]
-})
+    },
+  ],
+});

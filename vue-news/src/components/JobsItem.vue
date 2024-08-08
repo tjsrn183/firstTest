@@ -7,25 +7,16 @@
       <div>
         <p class="news-title">
           <template v-if="news.domain">
-            <a :href="news.url">{{ news.title }}</a
-            ><small class="link-text" v-if="news.domain"
-              >({{ news.domain }})</small
-            >
+            <a :href="news.url">{{ news.title }}</a>
+            <small class="link-text" v-if="news.domain">({{ news.domain }})</small>
           </template>
           <template v-else>
-            <router-link :to="`/item/${news.id}`">{{ news.title }}</router-link
-            ><small
-              ><a class="link-text" :href="news.domain" v-if="news.domain"
-                >({{ news.domain }})</a
-              ></small
-            >
+            <router-link :to="`/item/${news.id}`">{{ news.title }}</router-link><small><a class="link-text" :href="news.domain" v-if="news.domain">({{ news.domain }})</a></small>
           </template>
         </p>
         <small v-if="news.user" class="link-text">
           by
-          <router-link :to="`/user/${news.user}`" class="link-text">{{
-            news.user
-          }}</router-link>
+          <router-link :to="`/user/${news.user}`" class="link-text">{{ news.user }}</router-link>
         </small>
         <small v-if="news.time_ago" class="link-text">
           {{ news.time_ago }}
@@ -33,16 +24,20 @@
       </div>
     </li>
   </ul>
+  
+  
 </template>
 
 <script>
+
 export default {
+ 
   computed: {
     listItems() {
       return this.$store.getters.fetchedList;
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <style scoped>
