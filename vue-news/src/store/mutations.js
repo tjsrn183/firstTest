@@ -7,7 +7,6 @@ export default {
     state.item = item;
   },
   SET_LIST(state, list) {
-    //  console.log('코노오오옹',list);
     state.list = list;
   },
   INCREASE_HEART(state, id) {
